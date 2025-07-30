@@ -1,0 +1,18 @@
+# Server Configuration
+PORT=5000
+NODE_ENV=development
+
+# MongoDB Configuration
+MongoDB=mongodb://localhost:27017/devgluck
+
+# JWT Secret
+secretMessage=your_jwt_secret_key_here
+
+# AWS S3 Configuration
+accessKeyId=your_aws_access_key_id
+secretAccessKey=your_aws_secret_access_key
+region=us-east-1
+bucketName=your_s3_bucket_name
+
+# Optional: Frontend URL for CORS
+FRONTEND_URL=http://localhost:5173 
