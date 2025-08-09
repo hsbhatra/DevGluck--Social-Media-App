@@ -2,7 +2,8 @@ import React from "react";
 import { Bookmark, Grid3x3 } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 
-const UserProfileHeader = () => {
+// onEditProfile optional callback to open modal from parent
+const UserProfileHeader = ({ onEditProfile }) => {
   const navigate = useNavigate();
   return (
     <div className="bg-white shadow rounded-lg p-4 sm:p-6 max-w-4xl mx-auto">
@@ -43,20 +44,14 @@ const UserProfileHeader = () => {
       {/* Action Buttons - stacked on mobile, row on desktop */}
       <div className="flex flex-col sm:flex-row items-center justify-between gap-2 sm:gap-4 w-full">
         <div className="flex flex-col sm:flex-row gap-2 sm:gap-4 w-full sm:w-auto">
-          <button 
-            onClick={() => navigate('/user-posts')}
-            className="bg-blue-600 text-white rounded px-4 py-2 font-medium hover:bg-blue-700 transition w-full sm:w-auto text-sm"
-          >
-            My Posts
-          </button>
-          <button 
+          <button
             onClick={() => navigate('/saved-posts')}
             className="bg-blue-600 text-white rounded px-4 py-2 font-medium hover:bg-blue-700 transition w-full sm:w-auto text-sm"
           >
             Saved Posts
           </button>
-          <button 
-            onClick={() => navigate('/edit-profile')}
+          <button
+            onClick={() => onEditProfile && onEditProfile()}
             className="bg-blue-600 text-white rounded px-4 py-2 font-medium hover:bg-blue-700 transition w-full sm:w-auto text-sm"
           >
             Edit Profile
@@ -71,10 +66,7 @@ const UserProfileHeader = () => {
       </div>
 
       {/* Tabs */}
-      <div className="mt-6 border-t pt-4 hidden md:flex space-x-8 text-sm font-medium text-gray-600">
-        <button className="hover:text-black">My Posts</button>
-        <button className="hover:text-black">Saved Posts</button>
-      </div>
+  {/* Removed redundant desktop tabs including My Posts button */}
 
       {/* Mobile Tabs */}
       <div className="md:hidden mt-6 border-t pt-4 flex justify-around text-gray-600">

@@ -132,16 +132,29 @@ export const updateUserProfile = async (req, res) => {
     const userId = req.user._id; // from protect middleware
     const { bio, avatar } = req.body;
 
+    console.log("Updating profile for user:", userId);
+    console.log("Bio:", bio ? bio.substring(0, 50) : "No bio");
+    console.log("Avatar data received:", avatar ? `${avatar.substring(0, 50)}...` : "No avatar");
+
     const user = await User.findById(userId);
 
     if (!user || user.isDeleted) {
+      console.log("User not found or deleted");
       return res.status(404).json({ message: "User not found." });
     }
 
-    if (bio !== undefined) user.bio = bio.trim();
-    if (avatar !== undefined) user.avatar = avatar.trim();
+    if (bio !== undefined) {
+      user.bio = bio.trim();
+      console.log("Updated bio:", user.bio);
+    }
+    
+    if (avatar !== undefined) {
+      user.avatar = avatar.trim();
+      console.log("Avatar updated, length:", avatar.length);
+    }
 
     await user.save();
+    console.log("Profile saved successfully");
 
     res.status(200).json({
       message: "Profile updated successfully",
@@ -157,7 +170,7 @@ export const updateUserProfile = async (req, res) => {
     });
   } catch (err) {
     console.error("Error updating profile:", err);
-    res.status(500).json({ message: "Failed to update profile." });
+    res.status(500).json({ message: "Failed to update profile.", error: err.message });
   }
 };
 

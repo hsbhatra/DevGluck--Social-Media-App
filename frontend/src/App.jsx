@@ -15,6 +15,7 @@ import SettingsHelpPage from "./pages/SettingsHelpPage";
 import SettingsAboutPage from "./pages/SettingsAboutPage";
 import SettingsGeneralPage from "./pages/SettingsGeneralPage";
 import UserPersonalPosts from "./pages/UserPersonalPosts";
+import SavedPostsPage from "./pages/SavedPostsPage.jsx";
 // import SettingsAccountPage from "./pages/SettingsAccountPage";
 // import SettingsGeneralPage from "./pages/SettingsGeneralPage";
 // import NotificationsPage from "./pages/NotificationsPage";
@@ -173,6 +174,13 @@ function App() {
           <ProtectedRoute>
             <Layout>
               <UserPersonalPosts />
+            </Layout>
+          </ProtectedRoute>
+        } />
+        <Route path="/saved-posts" element={
+          <ProtectedRoute>
+            <Layout>
+              <SavedPostsPage />
             </Layout>
           </ProtectedRoute>
         } />

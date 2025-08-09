@@ -78,7 +78,7 @@ const UserPersonalPosts = () => {
           {/* Main Content */}
           <div className="lg:col-span-6">
             {/* Profile Header */}
-            <UserProfileHeader />
+            <UserProfileHeader onEditProfile={() => { /* open modal handled in profile page; optional here */ }} />
             
             {/* Feed */}
             <div className="mt-4 sm:mt-6">

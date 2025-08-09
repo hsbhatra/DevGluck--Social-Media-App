@@ -155,7 +155,7 @@ export default function MessagesUI() {
       </div>
 
       {/* Chat Area */}
-      <div className="flex-1 flex flex-col">
+      <div className="flex-1 flex flex-col h-11/12">
 
         {(selected?._id || selected?.recipientId) ? (
           <div className="p-3 sm:p-4 border-b border-gray-200 bg-white">

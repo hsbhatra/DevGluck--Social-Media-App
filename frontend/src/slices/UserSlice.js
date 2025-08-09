@@ -45,6 +45,26 @@ export const signInUser = createAsyncThunk(
   }
 );
 
+export const updateUserProfile = createAsyncThunk(
+  'user/updateProfile',
+  async (profileData, thunkAPI) => {
+    try {
+      console.log("Sending profile update:", {
+        bio: profileData.bio,
+        avatarLength: profileData.avatar ? profileData.avatar.length : 0
+      });
+      
+      const response = await axiosInstance.put('/api/users/update-profile', profileData);
+      console.log("Profile update response:", response.data);
+      return response.data.user;
+    } catch (error) {
+      console.error("UserSlice: updateUserProfile error:", error);
+      const errorMessage = error.response?.data?.message || error.response?.data?.error || error.message;
+      return thunkAPI.rejectWithValue(errorMessage);
+    }
+  }
+);
+
 const initialState = {
   currentUser: null,
   isAuthenticated: false,
@@ -115,6 +135,23 @@ const userSlice = createSlice({
         state.loading = false;
         state.error = action.error.message;
         console.error("Error signing in:", state.error);
+      })
+
+      // Update Profile
+      .addCase(updateUserProfile.pending, (state) => {
+        state.loading = true;
+        state.error = null;
+      })
+      .addCase(updateUserProfile.fulfilled, (state, action) => {
+        state.currentUser = { ...state.currentUser, ...action.payload };
+        state.loading = false;
+        localStorage.setItem('currentUser', JSON.stringify(state.currentUser));
+        console.log("Profile updated:", state.currentUser);
+      })
+      .addCase(updateUserProfile.rejected, (state, action) => {
+        state.loading = false;
+        state.error = action.payload || action.error.message;
+        console.error("Error updating profile:", state.error);
       });
   },
 });
