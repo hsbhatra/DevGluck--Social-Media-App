@@ -1,233 +1,40 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { ArrowLeft, X, Heart, MessageCircle, Share2, Bookmark } from 'lucide-react';
-
-const mockSavedPosts = [
-  {
-    id: 1,
-    image: '/general/post.jpg',
-    user: {
-      name: 'Robert Fox',
-      username: 'robert',
-      avatar: '/general/avatar.png'
-    },
-    caption: 'Beautiful sunset at the mountains! 🌄 #nature #photography',
-    likes: 124,
-    comments: 8,
-    isLiked: false,
-    isSaved: true,
-    commentsList: [
-      { id: 1, user: 'alice', text: 'Amazing view!' },
-      { id: 2, user: 'bob', text: 'Love this!' }
-    ]
-  },
-  {
-    id: 2,
-    image: 'https://images.unsplash.com/photo-1504674900247-0877df9cc836',
-    user: {
-      name: 'Sarah Wilson',
-      username: 'sarah_w',
-      avatar: 'https://randomuser.me/api/portraits/women/44.jpg'
-    },
-    caption: 'Delicious homemade pasta for dinner tonight! 🍝 #food #cooking',
-    likes: 89,
-    comments: 12,
-    isLiked: true,
-    isSaved: true,
-    commentsList: [
-      { id: 1, user: 'charlie', text: 'Looks delicious!' },
-      { id: 2, user: 'diana', text: 'Can I have the recipe?' }
-    ]
-  },
-  {
-    id: 3,
-    image: 'https://images.unsplash.com/photo-1465101046530-73398c7f28ca',
-    user: {
-      name: 'Mike Johnson',
-      username: 'mike_j',
-      avatar: 'https://randomuser.me/api/portraits/men/32.jpg'
-    },
-    caption: 'Starry night photography 📸 #astrophotography #night',
-    likes: 256,
-    comments: 23,
-    isLiked: false,
-    isSaved: true,
-    commentsList: [
-      { id: 1, user: 'emma', text: 'Beautiful!' },
-      { id: 2, user: 'frank', text: 'Amazing!' }
-    ]
-  },
-  {
-    id: 4,
-    image: 'https://images.unsplash.com/photo-1506744038136-46273834b3fb',
-    user: {
-      name: 'Emma Davis',
-      username: 'emma_d',
-      avatar: 'https://randomuser.me/api/portraits/women/65.jpg'
-    },
-    caption: 'Peaceful morning by the river 🌊 #nature #peace',
-    likes: 167,
-    comments: 15,
-    isLiked: true,
-    isSaved: true,
-    commentsList: [
-      { id: 1, user: 'george', text: 'So peaceful!' },
-      { id: 2, user: 'hannah', text: 'Lovely!' }
-    ]
-  },
-  {
-    id: 5,
-    image: 'https://images.unsplash.com/photo-1519125323398-675f0ddb6308',
-    user: {
-      name: 'Alex Chen',
-      username: 'alex_c',
-      avatar: 'https://randomuser.me/api/portraits/men/75.jpg'
-    },
-    caption: 'Beach vibes 🏖️ #summer #beach',
-    likes: 203,
-    comments: 18,
-    isLiked: false,
-    isSaved: true,
-    commentsList: [
-      { id: 1, user: 'isabelle', text: 'Lovely!' },
-      { id: 2, user: 'jack', text: 'Perfect!' }
-    ]
-  },
-  {
-    id: 6,
-    image: 'https://images.unsplash.com/photo-1465101178521-c1a9136a3b99',
-    user: {
-      name: 'Lisa Brown',
-      username: 'lisa_b',
-      avatar: 'https://randomuser.me/api/portraits/women/22.jpg'
-    },
-    caption: 'Coffee and good vibes ☕ #coffee #morning',
-    likes: 145,
-    comments: 9,
-    isLiked: true,
-    isSaved: true,
-    commentsList: [
-      { id: 1, user: 'michael', text: 'Great shot!' },
-      { id: 2, user: 'natalie', text: 'Perfect!' }
-    ]
-  },
-  {
-    id: 7,
-    image: 'https://images.unsplash.com/photo-1506905925346-21bda4d32df4',
-    user: {
-      name: 'David Kim',
-      username: 'david_k',
-      avatar: 'https://randomuser.me/api/portraits/men/45.jpg'
-    },
-    caption: 'City lights at night 🌃 #urban #photography',
-    likes: 189,
-    comments: 14,
-    isLiked: false,
-    isSaved: true,
-    commentsList: [
-      { id: 1, user: 'olivia', text: 'Stunning!' },
-      { id: 2, user: 'peter', text: 'Amazing cityscape!' }
-    ]
-  },
-  {
-    id: 8,
-    image: 'https://images.unsplash.com/photo-1441974231531-c6227db76b6e',
-    user: {
-      name: 'Sophie Martin',
-      username: 'sophie_m',
-      avatar: 'https://randomuser.me/api/portraits/women/33.jpg'
-    },
-    caption: 'Forest walk in autumn 🍂 #nature #autumn',
-    likes: 234,
-    comments: 21,
-    isLiked: true,
-    isSaved: true,
-    commentsList: [
-      { id: 1, user: 'rachel', text: 'So beautiful!' },
-      { id: 2, user: 'sam', text: 'Love the colors!' }
-    ]
-  },
-  {
-    id: 9,
-    image: 'https://images.unsplash.com/photo-1506905925346-21bda4d32df4',
-    user: {
-      name: 'Tom Wilson',
-      username: 'tom_w',
-      avatar: 'https://randomuser.me/api/portraits/men/67.jpg'
-    },
-    caption: 'Sunset over the ocean 🌅 #sunset #ocean',
-    likes: 312,
-    comments: 28,
-    isLiked: false,
-    isSaved: true,
-    commentsList: [
-      { id: 1, user: 'tina', text: 'Breathtaking!' },
-      { id: 2, user: 'victor', text: 'Perfect timing!' }
-    ]
-  },
-  {
-    id: 10,
-    image: 'https://images.unsplash.com/photo-1518837695005-2083093ee35b',
-    user: {
-      name: 'Maria Garcia',
-      username: 'maria_g',
-      avatar: 'https://randomuser.me/api/portraits/women/88.jpg'
-    },
-    caption: 'Morning workout 💪 #fitness #motivation',
-    likes: 156,
-    comments: 11,
-    isLiked: true,
-    isSaved: true,
-    commentsList: [
-      { id: 1, user: 'william', text: 'Keep it up!' },
-      { id: 2, user: 'zoe', text: 'Inspiring!' }
-    ]
-  },
-  {
-    id: 11,
-    image: 'https://images.unsplash.com/photo-1506905925346-21bda4d32df4',
-    user: {
-      name: 'James Lee',
-      username: 'james_l',
-      avatar: 'https://randomuser.me/api/portraits/men/23.jpg'
-    },
-    caption: 'Street photography 📷 #street #art',
-    likes: 178,
-    comments: 16,
-    isLiked: false,
-    isSaved: true,
-    commentsList: [
-      { id: 1, user: 'anna', text: 'Great composition!' },
-      { id: 2, user: 'ben', text: 'Love the mood!' }
-    ]
-  },
-  {
-    id: 12,
-    image: 'https://images.unsplash.com/photo-1441974231531-c6227db76b6e',
-    user: {
-      name: 'Nina Patel',
-      username: 'nina_p',
-      avatar: 'https://randomuser.me/api/portraits/women/56.jpg'
-    },
-    caption: 'Yoga session 🧘‍♀️ #yoga #wellness',
-    likes: 198,
-    comments: 13,
-    isLiked: true,
-    isSaved: true,
-    commentsList: [
-      { id: 1, user: 'carlos', text: 'Peaceful!' },
-      { id: 2, user: 'diana', text: 'Beautiful practice!' }
-    ]
-  }
-];
+import { useSelector } from 'react-redux';
+import { ArrowLeft, X, Heart, MessageCircle, Share2, Bookmark, Home, Loader2 } from 'lucide-react';
+import { getSavedPosts, savePost } from '../api/savedPostsApi.js';
 
 const SavedPostsPage = () => {
   const navigate = useNavigate();
+  const { currentUser } = useSelector((state) => state.users);
   const [selectedPost, setSelectedPost] = useState(null);
-  const [posts, setPosts] = useState(mockSavedPosts);
   const [commentInput, setCommentInput] = useState('');
   const [toast, setToast] = useState('');
   const [commentMode, setCommentMode] = useState(false);
+  const [savedPosts, setSavedPosts] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+
+  // Fetch saved posts on component mount
+  useEffect(() => {
+    const fetchSavedPosts = async () => {
+      try {
+        setLoading(true);
+        const posts = await getSavedPosts();
+        setSavedPosts(posts);
+        setError(null);
+      } catch (err) {
+        console.error("Failed to fetch saved posts:", err);
+        setError(err.message || "Failed to load saved posts");
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    if (currentUser) {
+      fetchSavedPosts();
+    }
+  }, [currentUser]);
 
   // Show toast for 2s
   useEffect(() => {
@@ -237,11 +44,93 @@ const SavedPostsPage = () => {
     }
   }, [toast]);
 
+  // Handle unsaving a post
+  const handleUnsavePost = async (postId) => {
+    try {
+      const result = await savePost(postId);
+      if (!result.saved) {
+        // Remove the post from the saved posts list
+        setSavedPosts(prev => prev.filter(post => post._id !== postId));
+        if (selectedPost && selectedPost._id === postId) {
+          setSelectedPost(null);
+        }
+        setToast('Post removed from saved');
+      }
+    } catch (err) {
+      console.error("Error unsaving post:", err);
+      setToast(err.message || 'Failed to unsave post');
+    }
+  };
+
+  // Loading state component
+  const LoadingState = () => (
+    <div className="flex flex-col items-center justify-center py-12 px-6 text-center">
+      <Loader2 className="w-8 h-8 text-blue-600 animate-spin mb-4" />
+      <p className="text-gray-500 text-sm">Loading your saved posts...</p>
+    </div>
+  );
+
+  // Error state component
+  const ErrorState = () => (
+    <div className="flex flex-col items-center justify-center py-12 px-6 text-center">
+      <div className="w-24 h-24 bg-red-100 rounded-full flex items-center justify-center mb-6">
+        <X className="w-12 h-12 text-red-500" />
+      </div>
+      <h2 className="text-xl font-semibold text-gray-800 mb-2">Failed to Load</h2>
+      <p className="text-gray-500 text-sm mb-6 max-w-xs">
+        {error}
+      </p>
+      <div className="flex flex-col gap-3 w-full max-w-xs">
+        <button
+          onClick={() => window.location.reload()}
+          className="bg-blue-600 text-white rounded-lg px-6 py-3 font-medium hover:bg-blue-700 transition"
+        >
+          Try Again
+        </button>
+        <button
+          onClick={() => navigate(-1)}
+          className="bg-gray-100 text-gray-700 rounded-lg px-6 py-3 font-medium hover:bg-gray-200 transition"
+        >
+          Go Back
+        </button>
+      </div>
+    </div>
+  );
+
+  // Empty state component
+  const EmptyState = () => (
+    <div className="flex flex-col items-center justify-center py-12 px-6 text-center">
+      <div className="w-24 h-24 bg-gray-100 rounded-full flex items-center justify-center mb-6">
+        <Bookmark className="w-12 h-12 text-gray-400" />
+      </div>
+      <h2 className="text-xl font-semibold text-gray-800 mb-2">No Saved Posts Yet</h2>
+      <p className="text-gray-500 text-sm mb-6 max-w-xs">
+        When you save posts, they'll appear here. Start exploring and save posts you want to see again!
+      </p>
+      <div className="flex flex-col gap-3 w-full max-w-xs">
+        <button
+          onClick={() => navigate('/')}
+          className="bg-blue-600 text-white rounded-lg px-6 py-3 font-medium hover:bg-blue-700 transition flex items-center justify-center gap-2"
+        >
+          <Home className="w-5 h-5" />
+          Go to Feed
+        </button>
+        <button
+          onClick={() => navigate(-1)}
+          className="bg-gray-100 text-gray-700 rounded-lg px-6 py-3 font-medium hover:bg-gray-200 transition"
+        >
+          Back to Profile
+        </button>
+      </div>
+    </div>
+  );
+
   const openModal = (post) => {
     setSelectedPost(post);
     setCommentMode(false);
     setCommentInput('');
   };
+  
   const closeModal = () => {
     setSelectedPost(null);
     setCommentMode(false);
@@ -256,61 +145,11 @@ const SavedPostsPage = () => {
     }, 100);
   };
 
-  const handleAddComment = () => {
-    if (!commentInput.trim() || !selectedPost) return;
-    const newComment = {
-      id: Date.now(),
-      user: 'you',
-      text: commentInput.trim(),
-    };
-    setPosts(posts.map(post =>
-      post.id === selectedPost.id
-        ? { ...post, commentsList: [...(post.commentsList || []), newComment], comments: (post.comments || 0) + 1 }
-        : post
-    ));
-    setSelectedPost(prev => prev ? {
-      ...prev,
-      commentsList: [...(prev.commentsList || []), newComment],
-      comments: (prev.comments || 0) + 1
-    } : prev);
-    setCommentInput('');
-    setCommentMode(false);
-  };
-
   const handleShare = () => {
     // Mock: copy link to clipboard
-    const url = window.location.origin + '/post/' + (selectedPost?.id || '');
+    const url = window.location.origin + '/post/' + (selectedPost?._id || '');
     navigator.clipboard.writeText(url);
     setToast('Link copied!');
-  };
-
-  const toggleLike = (postId) => {
-    setPosts(posts.map(post => 
-      post.id === postId 
-        ? { ...post, isLiked: !post.isLiked, likes: post.isLiked ? post.likes - 1 : post.likes + 1 }
-        : post
-    ));
-    if (selectedPost && selectedPost.id === postId) {
-      setSelectedPost(prev => ({
-        ...prev,
-        isLiked: !prev.isLiked,
-        likes: prev.isLiked ? prev.likes - 1 : prev.likes + 1
-      }));
-    }
-  };
-
-  const toggleSave = (postId) => {
-    setPosts(posts.map(post => 
-      post.id === postId 
-        ? { ...post, isSaved: !post.isSaved }
-        : post
-    ));
-    if (selectedPost && selectedPost.id === postId) {
-      setSelectedPost(prev => ({
-        ...prev,
-        isSaved: !prev.isSaved
-      }));
-    }
   };
 
   return (
@@ -325,23 +164,37 @@ const SavedPostsPage = () => {
       <div className="w-full max-w-md text-center text-gray-500 text-sm mb-4">
         Only you can see what you've saved
       </div>
-      {/* Grid */}
-      <div className="w-full max-w-md grid grid-cols-3 gap-1 bg-white rounded-xl overflow-hidden">
-        {posts.map((post, idx) => (
-          <button
-            key={post.id}
-            className="aspect-square w-full h-full overflow-hidden focus:outline-none"
-            onClick={() => openModal(post)}
-          >
-            <img
-              src={post.image}
-              alt={`Saved post ${post.id}`}
-              className="object-cover w-full h-full hover:opacity-80 transition"
-            />
-          </button>
-        ))}
+
+      {/* Content */}
+      <div className="w-full max-w-md bg-white rounded-xl overflow-hidden min-h-[400px]">
+        {loading ? (
+          <LoadingState />
+        ) : error ? (
+          <ErrorState />
+        ) : savedPosts.length === 0 ? (
+          <EmptyState />
+        ) : (
+          /* Grid for when there are saved posts */
+          <div className="grid grid-cols-3 gap-1">
+            {savedPosts.map((post, idx) => (
+              <button
+                key={post._id}
+                className="aspect-square w-full h-full overflow-hidden focus:outline-none"
+                onClick={() => openModal(post)}
+              >
+                <img
+                  src={post.media || '/general/post.jpg'}
+                  alt={`Saved post ${post._id}`}
+                  className="object-cover w-full h-full hover:opacity-80 transition"
+                  onError={(e) => { e.target.onerror = null; e.target.src = '/general/post.jpg'; }}
+                />
+              </button>
+            ))}
+          </div>
+        )}
       </div>
-      {/* Post Modal */}
+
+      {/* Post Modal - Only shown when there are saved posts */}
       {selectedPost && (
         <>
           <div className="fixed inset-0 backdrop-blur-md bg-white/20 z-50" onClick={closeModal}></div>
@@ -351,13 +204,14 @@ const SavedPostsPage = () => {
               <div className="flex items-center justify-between p-4 border-b">
                 <div className="flex items-center space-x-3">
                   <img
-                    src={selectedPost.user.avatar}
-                    alt={selectedPost.user.name}
+                    src={selectedPost.author.avatar || '/general/avatar.png'}
+                    alt={selectedPost.author.name}
                     className="w-8 h-8 rounded-full object-cover"
+                    onError={(e) => { e.target.onerror = null; e.target.src = '/general/avatar.png'; }}
                   />
                   <div>
-                    <h3 className="font-semibold text-sm">{selectedPost.user.name}</h3>
-                    <p className="text-xs text-gray-500">@{selectedPost.user.username}</p>
+                    <h3 className="font-semibold text-sm">{selectedPost.author.name}</h3>
+                    <p className="text-xs text-gray-500">@{selectedPost.author.username}</p>
                   </div>
                 </div>
                 <button
@@ -370,22 +224,18 @@ const SavedPostsPage = () => {
               {/* Post Image */}
               <div className="relative">
                 <img
-                  src={selectedPost.image}
+                  src={selectedPost.media || '/general/post.jpg'}
                   alt="Post"
                   className="w-full h-auto"
+                  onError={(e) => { e.target.onerror = null; e.target.src = '/general/post.jpg'; }}
                 />
               </div>
               {/* Post Actions */}
               <div className="p-4">
                 <div className="flex items-center justify-between mb-3">
                   <div className="flex items-center space-x-4">
-                    <button
-                      onClick={() => toggleLike(selectedPost.id)}
-                      className={`p-2 rounded-full transition-colors ${
-                        selectedPost.isLiked ? 'text-red-500' : 'text-gray-600 hover:text-red-500'
-                      }`}
-                    >
-                      <Heart className={`w-6 h-6 ${selectedPost.isLiked ? 'fill-current' : ''}`} />
+                    <button className="p-2 rounded-full text-gray-600 hover:text-red-500 transition-colors">
+                      <Heart className="w-6 h-6" />
                     </button>
                     <button 
                       className={`p-2 rounded-full transition-colors ${
@@ -399,79 +249,65 @@ const SavedPostsPage = () => {
                       <Share2 className="w-6 h-6" />
                     </button>
                   </div>
-                  <button
-                    onClick={() => toggleSave(selectedPost.id)}
-                    className={`p-2 rounded-full transition-colors ${
-                      selectedPost.isSaved ? 'text-blue-500' : 'text-gray-600 hover:text-blue-500'
-                    }`}
+                  <button 
+                    onClick={() => handleUnsavePost(selectedPost._id)}
+                    className="p-2 rounded-full text-blue-500 hover:text-red-500 transition-colors"
+                    title="Remove from saved"
                   >
-                    <Bookmark className={`w-6 h-6 ${selectedPost.isSaved ? 'fill-current' : ''}`} />
+                    <Bookmark className="w-6 h-6 fill-current" />
                   </button>
                 </div>
                 {/* Likes Count */}
                 <div className="text-sm font-semibold mb-2">
-                  {selectedPost.likes} likes
+                  {selectedPost.likes || 0} likes
                 </div>
                 {/* Caption */}
-                <div className="text-sm mb-2">
-                  <span className="font-semibold mr-2">{selectedPost.user.username}</span>
-                  {selectedPost.caption}
-                </div>
-                {/* Comments Section - Hidden by default, shown when comment icon is clicked */}
+                {selectedPost.content && (
+                  <div className="text-sm mb-2">
+                    <span className="font-semibold mr-2">{selectedPost.author.username}</span>
+                    {selectedPost.content}
+                  </div>
+                )}
+                {/* Comments Section */}
                 {commentMode && (
-                  <>
-                    {/* Comments List */}
-                    <div className="mb-2 max-h-32 overflow-y-auto">
-                      {(selectedPost.commentsList || []).map(c => (
-                        <div key={c.id} className="text-sm flex items-center mb-1">
-                          <span className="font-semibold mr-2">{c.user}</span>
-                          <span>{c.text}</span>
-                        </div>
-                      ))}
+                  <div className="bg-blue-50 rounded-lg p-3">
+                    <form className="flex items-center gap-2" onSubmit={e => { e.preventDefault(); }}>
+                      <input
+                        id="comment-input"
+                        type="text"
+                        className="flex-1 border border-blue-300 rounded-full px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 transition-all bg-white"
+                        placeholder="Write your comment..."
+                        value={commentInput}
+                        onChange={e => setCommentInput(e.target.value)}
+                      />
+                      <button 
+                        type="submit" 
+                        className={`font-semibold text-sm px-3 py-2 rounded-full transition-all ${
+                          commentInput.trim() 
+                            ? 'bg-blue-600 text-white hover:bg-blue-700' 
+                            : 'text-gray-400 cursor-not-allowed'
+                        }`}
+                        disabled={!commentInput.trim()}
+                      >
+                        Post
+                      </button>
+                    </form>
+                    <div className="flex justify-end mt-2">
+                      <button 
+                        onClick={() => setCommentMode(false)}
+                        className="text-xs text-gray-500 hover:text-gray-700"
+                      >
+                        Cancel
+                      </button>
                     </div>
-                    {/* Add Comment - Enhanced with comment mode */}
-                    <div className="bg-blue-50 rounded-lg p-3">
-                      <form className="flex items-center gap-2" onSubmit={e => { e.preventDefault(); handleAddComment(); }}>
-                        <input
-                          id="comment-input"
-                          type="text"
-                          className="flex-1 border border-blue-300 rounded-full px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 transition-all bg-white"
-                          placeholder="Write your comment..."
-                          value={commentInput}
-                          onChange={e => setCommentInput(e.target.value)}
-                        />
-                        <button 
-                          type="submit" 
-                          className={`font-semibold text-sm px-3 py-2 rounded-full transition-all ${
-                            commentInput.trim() 
-                              ? 'bg-blue-600 text-white hover:bg-blue-700' 
-                              : 'text-gray-400 cursor-not-allowed'
-                          }`}
-                          disabled={!commentInput.trim()}
-                        >
-                          Post
-                        </button>
-                      </form>
-                      <div className="flex justify-end mt-2">
-                        <button 
-                          onClick={() => setCommentMode(false)}
-                          className="text-xs text-gray-500 hover:text-gray-700"
-                        >
-                          Cancel
-                        </button>
-                      </div>
-                    </div>
-                    {/* Comments Count */}
-                    <div className="text-xs text-gray-500 mt-2">
-                      View all {selectedPost.comments} comments
-                    </div>
-                  </>
+                  </div>
                 )}
               </div>
             </div>
           </div>
         </>
       )}
+
       {/* Toast */}
       {toast && (
         <div className="fixed bottom-6 left-1/2 -translate-x-1/2 bg-black bg-opacity-80 text-white px-4 py-2 rounded-full shadow-lg z-[100] text-sm">

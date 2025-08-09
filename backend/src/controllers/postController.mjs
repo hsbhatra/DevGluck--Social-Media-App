@@ -1,6 +1,7 @@
 import { Post } from "../models/postModel.mjs";
 import { Like } from "../models/likeModel.mjs";
 import { Comment } from "../models/commentModel.mjs";
+import { SavedPost } from "../models/savedPostModel.mjs";
 import { uploadImage } from "../aws/aws.mjs";
 
 // Create a new post
@@ -78,16 +79,24 @@ export const addNewPost = async (req, res) => {
 // Get all posts
 export const getAllPosts = async (req, res) => {
   try {
+    const userId = req.user._id;
     const posts = await Post.find({ isDeleted: false })
       .sort({ createdAt: -1 })
       .populate("author", "firstName lastName avatar username");
     
-    // Add name field to each post's author for frontend compatibility
+    // Get all saved posts by the current user
+    const savedPosts = await SavedPost.find({ userId }).select('postId');
+    const savedPostIds = savedPosts.map(saved => saved.postId.toString());
+    
+    // Add name field and saved status to each post's author for frontend compatibility
     posts.forEach(post => {
       if (post.author) {
         post.author.name = `${post.author.firstName} ${post.author.lastName}`;
       }
+      // Add saved status
+      post._doc.isSaved = savedPostIds.includes(post._id.toString());
     });
+    
     res.json(posts);
   } catch (err) {
     res.status(500).json({ message: "Failed to fetch posts", error: err.message });
@@ -97,17 +106,25 @@ export const getAllPosts = async (req, res) => {
 // Get all posts by a user
 export const getUserPosts = async (req, res) => {
   try {
-    const userId = req.params.userId || req.user._id;
-    const posts = await Post.find({ author: userId, isDeleted: false })
+    const targetUserId = req.params.userId || req.user._id;
+    const currentUserId = req.user._id;
+    const posts = await Post.find({ author: targetUserId, isDeleted: false })
       .sort({ createdAt: -1 })
       .populate("author", "firstName lastName avatar username");
     
-    // Add name field to each post's author for frontend compatibility
+    // Get all saved posts by the current user
+    const savedPosts = await SavedPost.find({ userId: currentUserId }).select('postId');
+    const savedPostIds = savedPosts.map(saved => saved.postId.toString());
+    
+    // Add name field and saved status to each post's author for frontend compatibility
     posts.forEach(post => {
       if (post.author) {
         post.author.name = `${post.author.firstName} ${post.author.lastName}`;
       }
+      // Add saved status
+      post._doc.isSaved = savedPostIds.includes(post._id.toString());
     });
+    
     res.json(posts);
   } catch (err) {
     res.status(500).json({ message: "Failed to fetch user posts", error: err.message });
@@ -200,5 +217,80 @@ export const getCommentsOfPost = async (req, res) => {
     res.json(comments);
   } catch (err) {
     res.status(500).json({ message: "Failed to fetch comments", error: err.message });
+  }
+};
+
+// Save or unsave a post
+export const savePost = async (req, res) => {
+  try {
+    const postId = req.params.postId;
+    const userId = req.user._id;
+    
+    // Check if the post exists and is not deleted
+    const post = await Post.findById(postId);
+    if (!post || post.isDeleted) {
+      return res.status(404).json({ message: "Post not found." });
+    }
+    
+    // Check if user is trying to save their own post
+    if (post.author.toString() === userId.toString()) {
+      return res.status(400).json({ message: "You cannot save your own post." });
+    }
+    
+    // Check if the post is already saved by the user
+    const existingSavedPost = await SavedPost.findOne({ userId, postId });
+    
+    if (existingSavedPost) {
+      // Unsave the post
+      await existingSavedPost.deleteOne();
+      return res.json({ saved: false, message: "Post unsaved successfully." });
+    } else {
+      // Save the post
+      await SavedPost.create({ userId, postId });
+      return res.json({ saved: true, message: "Post saved successfully." });
+    }
+  } catch (err) {
+    // Handle duplicate key error (in case of race condition)
+    if (err.code === 11000) {
+      return res.status(400).json({ message: "Post is already saved." });
+    }
+    res.status(500).json({ message: "Failed to save/unsave post", error: err.message });
+  }
+};
+
+// Get all saved posts by a user
+export const getSavedPosts = async (req, res) => {
+  try {
+    const userId = req.user._id;
+    
+    // Find all saved posts by the user and populate the post details
+    const savedPosts = await SavedPost.find({ userId })
+      .sort({ createdAt: -1 })
+      .populate({
+        path: 'postId',
+        match: { isDeleted: false }, // Only get posts that are not deleted
+        populate: {
+          path: 'author',
+          select: 'firstName lastName avatar username'
+        }
+      });
+    
+    // Filter out saved posts where the actual post was deleted
+    const validSavedPosts = savedPosts.filter(saved => saved.postId !== null);
+    
+    // Format the response to match the frontend expectations
+    const posts = validSavedPosts.map(saved => {
+      const post = saved.postId;
+      if (post.author) {
+        post.author.name = `${post.author.firstName} ${post.author.lastName}`;
+      }
+      // Add saved status (always true since these are saved posts)
+      post._doc.isSaved = true;
+      return post;
+    });
+    
+    res.json(posts);
+  } catch (err) {
+    res.status(500).json({ message: "Failed to fetch saved posts", error: err.message });
   }
 };

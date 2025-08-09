@@ -9,7 +9,9 @@ import {
   deletePost,
   likePost,
   addComment,
-  getCommentsOfPost
+  getCommentsOfPost,
+  savePost,
+  getSavedPosts
 } from "../controllers/postController.mjs";
 
 const router = express.Router();
@@ -22,5 +24,7 @@ router.route("/delete/:postId").delete(protect, deletePost);
 router.route("/:postId/like").post(protect, likePost);
 router.route("/:postId/comment").post(protect, addComment); 
 router.route("/:postId/comment/all").get(protect, getCommentsOfPost);
+router.route("/:postId/save").post(protect, savePost);
+router.route("/saved").get(protect, getSavedPosts);
 
 export default router;

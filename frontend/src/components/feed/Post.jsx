@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
 import { Heart, MessageCircle, Share2, Bookmark, MoreHorizontal, Trash2 } from "lucide-react";
 import { likePost, addComment, fetchComments, deletePost } from "../../slices/PostSlice.js";
+import { savePost } from "../../api/savedPostsApi.js";
 import Comments from "./Comments";
 import SharePopup from "./SharePopUp";
 
@@ -15,13 +16,19 @@ const Post = ({ post, type }) => {
   // ✅ states for interactions
   const [showComments, setShowComments] = useState(false);
   const [showShare, setShowShare] = useState(false);
-  const [saved, setSaved] = useState(false);
+  const [saved, setSaved] = useState(post.isSaved || false);
   const [commentInput, setCommentInput] = useState('');
   const [showDeleteMenu, setShowDeleteMenu] = useState(false);
+  const [saveLoading, setSaveLoading] = useState(false);
   const deleteMenuRef = useRef(null);
 
   // Get comments for this post
   const comments = postComments[post._id] || [];
+
+  // Sync saved state with post data
+  useEffect(() => {
+    setSaved(post.isSaved || false);
+  }, [post.isSaved]);
 
   // Format date
   const formatDate = (dateString) => {
@@ -58,8 +65,24 @@ const Post = ({ post, type }) => {
     }
   };
 
-  const handleSave = () => {
-    setSaved(prev => !prev);
+  const handleSave = async () => {
+    // Prevent saving own posts
+    if (post.author._id === currentUser._id) {
+      return;
+    }
+
+    if (saveLoading) return;
+
+    try {
+      setSaveLoading(true);
+      const result = await savePost(post._id);
+      setSaved(result.saved);
+    } catch (error) {
+      console.error("Error saving/unsaving post:", error);
+      // Optionally show a toast or error message
+    } finally {
+      setSaveLoading(false);
+    }
   };
 
   const handleComment = () => {
@@ -273,12 +296,18 @@ const Post = ({ post, type }) => {
               {/* Save Button */}
               <motion.button
                 onClick={handleSave}
+                disabled={saveLoading || post.author._id === currentUser._id}
                 className={`transition-colors flex-shrink-0 ${
-                  saved ? 'text-blue-500' : 'text-gray-600 hover:text-blue-500'
-                }`}
-                whileHover={{ scale: 1.1 }}
-                whileTap={{ scale: 0.9 }}
+                  post.author._id === currentUser._id 
+                    ? 'text-gray-300 cursor-not-allowed' 
+                    : saved 
+                      ? 'text-blue-500' 
+                      : 'text-gray-600 hover:text-blue-500'
+                } ${saveLoading ? 'opacity-50' : ''}`}
+                whileHover={post.author._id !== currentUser._id && !saveLoading ? { scale: 1.1 } : {}}
+                whileTap={post.author._id !== currentUser._id && !saveLoading ? { scale: 0.9 } : {}}
                 transition={{ duration: 0.2 }}
+                title={post.author._id === currentUser._id ? "You cannot save your own post" : saved ? "Unsave post" : "Save post"}
               >
                 <motion.div
                   animate={saved ? { scale: [1, 1.2, 1] } : {}}
