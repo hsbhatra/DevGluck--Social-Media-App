@@ -6,7 +6,8 @@ const Layout = ({ children }) => {
   return (
     <div className="min-h-screen bg-gray-50 overflow-x-hidden">
       <Navbar />
-      <main className="pt-16 sm:pt-20 w-full">
+      <main className="sm:pt-20 pb-20 sm:pb-4 w-full">
+        {/* Remove top padding on mobile since no top navbar, add bottom padding for bottom nav */}
         <AnimatePresence mode="wait">
           <motion.div
             key={window.location.pathname}

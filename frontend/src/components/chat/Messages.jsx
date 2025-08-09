@@ -26,7 +26,16 @@ export default function MessagesUI() {
   const [selected, setSelected] = useState({});
   const user = JSON.parse(localStorage.getItem("currentUser")) || {};
   const [input, setInput] = useState("");
+  const messagesEndRef = useRef(null);
   // const eventBound = useRef(false);
+
+  const scrollToBottom = () => {
+    messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
+  };
+
+  useEffect(() => {
+    scrollToBottom();
+  }, [messages]);
 
   useEffect(() => {
     console.log("Messages UE 1", user?._id);
@@ -113,7 +122,7 @@ export default function MessagesUI() {
 
   return (
     <motion.div
-      className="flex h-screen border border-gray-200 rounded-lg overflow-hidden shadow-sm font-sans"
+      className="flex border border-gray-200 rounded-lg overflow-hidden shadow-sm font-sans h-[calc(100vh-80px)] sm:h-[calc(100vh-100px)]"
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.1, ease: "easeIn" }}
@@ -155,10 +164,10 @@ export default function MessagesUI() {
       </div>
 
       {/* Chat Area */}
-      <div className="flex-1 flex flex-col h-11/12">
+      <div className="flex-1 flex flex-col min-h-0">
 
         {(selected?._id || selected?.recipientId) ? (
-          <div className="p-3 sm:p-4 border-b border-gray-200 bg-white">
+          <div className="p-3 sm:p-4 border-b border-gray-200 bg-white flex-shrink-0">
             <AnimatePresence mode="wait">
               <div className="flex items-center gap-3">
                 <img
@@ -177,31 +186,34 @@ export default function MessagesUI() {
             </AnimatePresence>
           </div>
         ) : (
-          <div className="p-4 text-center text-gray-500">Select a chat to start messaging</div>
+          <div className="p-4 text-center text-gray-500 flex-shrink-0">Select a chat to start messaging</div>
         )}
 
-        <div className="flex-1 overflow-y-auto p-3 sm:p-4 bg-gray-50">
+        <div className="flex-1 overflow-y-auto p-3 sm:p-4 bg-gray-50 min-h-0">
           <AnimatePresence>
             {messages.length > 0 ? (
-              messages.map((message, index) => (
-                <motion.div
-                  key={index}
-                  className={`flex ${message.senderId === user?._id ? "justify-end" : "justify-start"}`}
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  exit={{ opacity: 0, y: 20 }}
-                  transition={{ duration: 0.05, ease: 'easeInOut' }}
-                >
-                  <div
-                    className={`max-w-xs sm:max-w-md lg:max-w-lg px-3 py-2 rounded-lg text-sm break-words ${message.senderId === user?._id
-                      ? "bg-blue-600 text-white"
-                      : "bg-white text-gray-800 border border-gray-200"
-                      }`}
+              <div className="space-y-2">
+                {messages.map((message, index) => (
+                  <motion.div
+                    key={index}
+                    className={`flex ${message.senderId === user?._id ? "justify-end" : "justify-start"}`}
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    exit={{ opacity: 0, y: 20 }}
+                    transition={{ duration: 0.05, ease: 'easeInOut' }}
                   >
-                    {message.message}
-                  </div>
-                </motion.div>
-              ))
+                    <div
+                      className={`max-w-xs sm:max-w-md lg:max-w-lg px-3 py-2 rounded-lg text-sm break-words ${message.senderId === user?._id
+                        ? "bg-blue-600 text-white"
+                        : "bg-white text-gray-800 border border-gray-200"
+                        }`}
+                    >
+                      {message.message}
+                    </div>
+                  </motion.div>
+                ))}
+                <div ref={messagesEndRef} />
+              </div>
             ) : (
               <div className="text-gray-500 text-center text-sm">No messages yet</div>
             )}
@@ -209,7 +221,7 @@ export default function MessagesUI() {
         </div>
 
         {(selected?._id || selected?.recipientId) && (
-          <div className="p-3 sm:p-4 border-t border-gray-200 bg-white">
+          <div className="p-3 sm:p-4 border-t border-gray-200 bg-white flex-shrink-0">
             <form onSubmit={handleSendMessage} className="flex gap-2 sm:gap-3">
               <input
                 type="text"
