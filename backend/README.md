@@ -2,42 +2,42 @@
 
 A robust Node.js/Express.js backend API for the DevGluck Social Media App, featuring real-time communication, file uploads, and comprehensive social media functionality.
 
-## 🚀 Features
+## Features
 
 ### API Endpoints
-- **Authentication**: JWT-based user registration and login
-- **User Management**: Profile CRUD operations, follow/unfollow system
-- **Posts**: Create, read, update, delete posts with image support
-- **Interactions**: Like, comment, share, and save posts
-- **Real-time Chat**: Socket.IO integration for instant messaging
-- **Notifications**: Real-time notification system
-- **File Upload**: AWS S3 integration for media storage
-- **Search**: User and post search functionality
+- Authentication: JWT-based user registration and login
+- User Management: Profile CRUD operations, follow/unfollow system
+- Posts: Create, read, update, delete posts with image support
+- Interactions: Like, comment, share, and save posts
+- Real-time Chat: Socket.IO integration for instant messaging
+- Notifications: Real-time notification system
+- File Upload: AWS S3 integration for media storage
+- Search: User and post search functionality
 
 ### Technical Features
-- **RESTful API**: Clean, consistent API design
-- **Real-time Communication**: Socket.IO for live updates
-- **File Storage**: AWS S3 for scalable media storage
-- **Authentication**: JWT tokens with bcrypt password hashing
-- **Database**: MongoDB with Mongoose ODM
-- **Validation**: Input validation and error handling
-- **CORS**: Cross-origin resource sharing support
+- RESTful API: Clean, consistent API design
+- Real-time Communication: Socket.IO for live updates
+- File Storage: AWS S3 for scalable media storage
+- Authentication: JWT tokens with bcrypt password hashing
+- Database: MongoDB with Mongoose ODM
+- Validation: Input validation and error handling
+- CORS: Cross-origin resource sharing support
 
-## 🛠️ Tech Stack
+## Tech Stack
 
-- **Node.js** - Runtime environment
-- **Express.js** - Web framework
-- **MongoDB** - NoSQL database
-- **Mongoose** - Object Data Modeling
-- **Socket.IO** - Real-time bidirectional communication
-- **JWT** - JSON Web Tokens for authentication
-- **bcrypt** - Password hashing
-- **Multer** - File upload middleware
-- **AWS SDK** - S3 file storage
-- **CORS** - Cross-origin resource sharing
-- **dotenv** - Environment variable management
+- Node.js: Runtime environment
+- Express.js: Web framework
+- MongoDB: NoSQL database
+- Mongoose: Object Data Modeling
+- Socket.IO: Real-time bidirectional communication
+- JWT: JSON Web Tokens for authentication
+- bcrypt: Password hashing
+- Multer: File upload middleware
+- AWS SDK: S3 file storage
+- CORS: Cross-origin resource sharing
+- dotenv: Environment variable management
 
-## 📦 Installation
+## Installation
 
 ### Prerequisites
 - Node.js (v22 or higher)
@@ -86,7 +86,7 @@ A robust Node.js/Express.js backend API for the DevGluck Social Media App, featu
 
 The API will be available at `http://localhost:5000`
 
-## 🔧 API Endpoints
+## API Endpoints
 
 ### Authentication
 - `POST /api/auth/register` - User registration
@@ -124,7 +124,7 @@ The API will be available at `http://localhost:5000`
 - `GET /api/notifications` - Get notifications
 - `PUT /api/notifications/:id/read` - Mark as read
 
-## 🏗️ Project Structure
+## Project Structure
 
 ```
 backend/
@@ -168,7 +168,7 @@ backend/
 └── package.json       # Dependencies
 ```
 
-## 🔒 Security Features
+## Security Features
 
 - **JWT Authentication**: Secure token-based authentication
 - **Password Hashing**: bcrypt for secure password storage
@@ -177,7 +177,7 @@ backend/
 - **File Upload Security**: File type and size validation
 - **Error Handling**: Secure error responses
 
-## 📊 Database Models
+## Database Models
 
 ### User Model
 - Basic info (name, email, password)
@@ -196,7 +196,7 @@ backend/
 - Message and Conversation models
 - Notification system
 
-## 🚀 Deployment
+## Deployment
 
 ### Environment Variables
 Ensure all required environment variables are set in production:
@@ -212,7 +212,7 @@ Ensure all required environment variables are set in production:
 - Set up monitoring and error tracking
 - Use environment-specific configurations
 
-## 🤝 Contributing
+## Contributing
 
 1. Follow the existing code structure
 2. Add proper error handling
@@ -220,6 +220,6 @@ Ensure all required environment variables are set in production:
 4. Write clear API documentation
 5. Test all endpoints thoroughly
 
-## 📞 Support
+## Support
 
 For backend-specific issues or questions, please refer to the main project README or create an issue in the repository.

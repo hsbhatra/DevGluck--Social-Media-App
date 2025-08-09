@@ -2,53 +2,53 @@
 
 A modern, full-stack social media application built with the MERN stack (MongoDB, Express.js, React, Node.js) featuring real-time chat, post sharing, user profiles, and more.
 
-## 🚀 Features
+## Features
 
 ### Core Features
-- **User Authentication** - Secure login/signup with JWT
-- **User Profiles** - Customizable user profiles with avatars and cover images
-- **Posts & Content** - Create, edit, and share posts with images
-- **Social Interactions** - Like, comment, share, and save posts
-- **Follow System** - Follow/unfollow other users
-- **Real-time Chat** - Instant messaging with Socket.IO
-- **Notifications** - Real-time notifications for interactions
-- **Search** - Search for users and posts
-- **Blogs** - Create and share blog posts
-- **Status Updates** - Share temporary status updates
-- **Voice Messages** - Send voice messages in chat
+- User Authentication: Secure login/signup with JWT
+- User Profiles: Customizable user profiles with avatars and cover images
+- Posts & Content: Create, edit, and share posts with images
+- Social Interactions: Like, comment, share, and save posts
+- Follow System: Follow/unfollow other users
+- Real-time Chat: Instant messaging with Socket.IO
+- Notifications: Real-time notifications for interactions
+- Search: Search for users and posts
+- Blogs: Create and share blog posts
+- Status Updates: Share temporary status updates
+- Voice Messages: Send voice messages in chat
 
 ### Technical Features
-- **Responsive Design** - Works on desktop and mobile
-- **Real-time Updates** - Live notifications and chat
-- **Image Upload** - AWS S3 integration for media storage
-- **Modern UI** - Built with Tailwind CSS and Framer Motion
-- **State Management** - Redux Toolkit for global state
-- **API Integration** - RESTful API with Express.js
+- Responsive Design: Works on desktop and mobile
+- Real-time Updates: Live notifications and chat
+- Image Upload: AWS S3 integration for media storage
+- Modern UI: Built with Tailwind CSS and Framer Motion
+- State Management: Redux Toolkit for global state
+- API Integration: RESTful API with Express.js
 
-## 🛠️ Tech Stack
+## Tech Stack
 
 ### Backend
-- **Node.js** - Runtime environment
-- **Express.js** - Web framework
-- **MongoDB** - Database
-- **Mongoose** - ODM for MongoDB
-- **Socket.IO** - Real-time communication
-- **JWT** - Authentication
-- **AWS S3** - File storage
-- **Multer** - File upload handling
-- **bcrypt** - Password hashing
+- Node.js: Runtime environment
+- Express.js: Web framework
+- MongoDB: Database
+- Mongoose: ODM for MongoDB
+- Socket.IO: Real-time communication
+- JWT: Authentication
+- AWS S3: File storage
+- Multer: File upload handling
+- bcrypt: Password hashing
 
 ### Frontend
-- **React 19** - UI library
-- **Vite** - Build tool
-- **Redux Toolkit** - State management
-- **React Router** - Navigation
-- **Tailwind CSS** - Styling
-- **Framer Motion** - Animations
-- **Socket.IO Client** - Real-time features
-- **Axios** - HTTP client
+- React 19: UI library
+- Vite: Build tool
+- Redux Toolkit: State management
+- React Router: Navigation
+- Tailwind CSS: Styling
+- Framer Motion: Animations
+- Socket.IO Client: Real-time features
+- Axios: HTTP client
 
-## 📦 Installation
+## Installation
 
 ### Prerequisites
 - Node.js (v22 or higher)
@@ -56,68 +56,39 @@ A modern, full-stack social media application built with the MERN stack (MongoDB
 - AWS S3 bucket (for file storage)
 
 ### Backend Setup
-
-1. **Clone the repository**
+1. Clone the repository:
    ```bash
    git clone <repository-url>
    cd DevGluck-Social-Media-App
    ```
-
-2. **Install dependencies**
+2. Install dependencies:
    ```bash
    cd backend
    npm install
    ```
-
-3. **Environment Configuration**
+3. Environment Configuration:
    ```bash
-   # Copy the example environment file
    cp .env.example .env
    ```
-   
-   Update the `.env` file with your configuration:
-   ```env
-   # Server Configuration
-   PORT=5000
-   NODE_ENV=development
-   
-   # MongoDB Configuration
-   MongoDB=mongodb://localhost:27017/devgluck
-   
-   # JWT Secret
-   secretMessage=your_jwt_secret_key_here
-   
-   # AWS S3 Configuration
-   accessKeyId=your_aws_access_key_id
-   secretAccessKey=your_aws_secret_access_key
-   region=us-east-1
-   bucketName=your_s3_bucket_name
-   
-   # Optional: Frontend URL for CORS
-   FRONTEND_URL=http://localhost:5173
-   ```
-
-4. **Start the backend server**
+   Update the `.env` file with your configuration.
+4. Start the backend server:
    ```bash
    npm run dev
    ```
 
 ### Frontend Setup
-
-1. **Install dependencies**
+1. Install dependencies:
    ```bash
    cd frontend
    npm install
    ```
-
-2. **Start the development server**
+2. Start the development server:
    ```bash
    npm run dev
    ```
-
 The frontend will be available at `http://localhost:5173`
 
-## 🔧 Configuration
+## Configuration
 
 ### Environment Variables
 
@@ -150,7 +121,7 @@ The frontend will be available at `http://localhost:5173`
 3. Create an IAM user with S3 access
 4. Add the access keys to your `.env` file
 
-## 📱 Usage
+## Usage
 
 ### User Registration & Authentication
 - Sign up with email and password
@@ -174,7 +145,7 @@ The frontend will be available at `http://localhost:5173`
 - **Voice Messages**: Record and send voice clips
 - **Notifications**: Get notified of interactions
 
-## 🏗️ Project Structure
+## Project Structure
 
 ```
 DevGluck-Social-Media-App/
@@ -200,7 +171,7 @@ DevGluck-Social-Media-App/
 └── README.md
 ```
 
-## 🤝 Contributing
+## Contributing
 
 1. Fork the repository
 2. Create a feature branch (`git checkout -b feature/amazing-feature`)
@@ -208,17 +179,17 @@ DevGluck-Social-Media-App/
 4. Push to the branch (`git push origin feature/amazing-feature`)
 5. Open a Pull Request
 
-## 📄 License
+## License
 
 This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
 
-## 🙏 Acknowledgments
+## Acknowledgments
 
 - **Design Inspiration**: [Figma Design](https://www.figma.com/design/wylvoa6Ht96ci8cBShDLE2/Social-Media-App-Ui-Design--Community-?node-id=0-1&p=f&t=pxncupn9XLh5xb39-0)
 - **Icons**: Lucide React, React Icons
 - **UI Components**: Tailwind CSS, Framer Motion
 
-## 📞 Support
+## Support
 
 For support, email support@devgluck.com or create an issue in the repository.
 

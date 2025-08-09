@@ -1,52 +1,59 @@
 # DevGluck Frontend
 
 A modern, responsive React frontend for the DevGluck Social Media App, built with Vite, Redux Toolkit, and Tailwind CSS. Features real-time updates, beautiful animations, and an intuitive user interface.
-
-## 🚀 Features
-
 ### User Interface
-- **Responsive Design** - Optimized for desktop and mobile devices
-- **Modern UI/UX** - Clean, intuitive interface with smooth animations
+- Responsive Design: Optimized for desktop and mobile devices
+- Modern UI/UX: Clean, intuitive interface with smooth animations
+- Dark/Light Mode: Theme switching capability
+- Real-time Updates: Live notifications and chat updates
+- Image Upload: Drag-and-drop file uploads with preview
+- Voice Messages: Record and send voice clips in chat
 - **Dark/Light Mode** - Theme switching capability
-- **Real-time Updates** - Live notifications and chat updates
-- **Image Upload** - Drag-and-drop file uploads with preview
-- **Voice Messages** - Record and send voice clips in chat
-
 ### Core Functionality
-- **Authentication** - Secure login/signup with form validation
-- **User Profiles** - Customizable profiles with avatar and cover images
-- **Feed System** - Infinite scroll post feed with engagement features
-- **Post Creation** - Rich text editor with image support
-- **Social Interactions** - Like, comment, share, and save posts
-- **Follow System** - Follow/unfollow users with real-time updates
-- **Real-time Chat** - Instant messaging with Socket.IO
+- Authentication: Secure login/signup with form validation
+- User Profiles: Customizable profiles with avatar and cover images
+- Feed System: Infinite scroll post feed with engagement features
+- Post Creation: Rich text editor with image support
+- Social Interactions: Like, comment, share, and save posts
+- Follow System: Follow/unfollow users with real-time updates
+- Real-time Chat: Instant messaging with Socket.IO
+- Notifications: Live notification system
+- Search: Advanced search for users and posts
+- Blogs: Long-form content creation and sharing
+- Status Updates: Temporary status sharing
+- Settings: Comprehensive user preferences
 - **Notifications** - Live notification system
-- **Search** - Advanced search for users and posts
-- **Blogs** - Long-form content creation and sharing
-- **Status Updates** - Temporary status sharing
-- **Settings** - Comprehensive user preferences
-
 ### Technical Features
-- **State Management** - Redux Toolkit for global state
-- **Routing** - React Router for navigation
+- State Management: Redux Toolkit for global state
+- Routing: React Router for navigation
+- Real-time Communication: Socket.IO client integration
+- API Integration: Axios for HTTP requests
+- Animations: Framer Motion for smooth transitions
+- Styling: Tailwind CSS for utility-first styling
+- Icons: Lucide React and React Icons
+- Form Handling: Custom form components with validation
 - **Real-time Communication** - Socket.IO client integration
 - **API Integration** - Axios for HTTP requests
-- **Animations** - Framer Motion for smooth transitions
-- **Styling** - Tailwind CSS for utility-first styling
-- **Icons** - Lucide React and React Icons
-- **Form Handling** - Custom form components with validation
-
-## 🛠️ Tech Stack
-
 ### Core
-- **React 19** - UI library with latest features
-- **Vite** - Fast build tool and development server
-- **Redux Toolkit** - State management
-- **React Router** - Client-side routing
+- React 19: UI library with latest features
+- Vite: Fast build tool and development server
+- Redux Toolkit: State management
+- React Router: Client-side routing
 
 ### Styling & UI
-- **Tailwind CSS** - Utility-first CSS framework
-- **Framer Motion** - Animation library
+- Tailwind CSS: Utility-first CSS framework
+- Framer Motion: Animation library
+- Lucide React: Icon library
+- React Icons: Additional icon sets
+- **Vite** - Fast build tool and development server
+### Communication
+- Socket.IO Client: Real-time communication
+- Axios: HTTP client for API calls
+
+### Utilities
+- Lodash: JavaScript utility library
+- React Share: Social media sharing
+- usehooks-ts: Custom React hooks
 - **Lucide React** - Icon library
 - **React Icons** - Additional icon sets
 
@@ -59,7 +66,7 @@ A modern, responsive React frontend for the DevGluck Social Media App, built wit
 - **React Share** - Social media sharing
 - **usehooks-ts** - Custom React hooks
 
-## 📦 Installation
+## Installation
 
 ### Prerequisites
 - Node.js (v22 or higher)
@@ -85,7 +92,7 @@ npm run build
 npm run preview
 ```
 
-## 🏗️ Project Structure
+## Project Structure
 
 ```
 frontend/
@@ -139,7 +146,7 @@ frontend/
 └── package.json           # Dependencies and scripts
 ```
 
-## 🎨 Component Architecture
+## Component Architecture
 
 ### Authentication Components
 - `LoginPage.jsx` - User login interface
@@ -164,7 +171,7 @@ frontend/
 - `FollowersFollowing.jsx` - Follow system interface
 - `UserPosts.jsx` - User's posts display
 
-## 🔧 Configuration
+## Configuration
 
 ### Environment Variables
 The frontend connects to the backend API. Ensure the backend is running and accessible.
@@ -179,7 +186,7 @@ The frontend connects to the backend API. Ensure the backend is running and acce
 - Custom CSS in `src/index.css`
 - Component-specific styling with Tailwind classes
 
-## 🚀 Key Features Implementation
+## Key Features Implementation
 
 ### Real-time Updates
 - Socket.IO integration for live chat
@@ -202,7 +209,7 @@ The frontend connects to the backend API. Ensure the backend is running and acce
 - Optimized image loading
 - Efficient re-renders with React.memo
 
-## 🎯 Development Guidelines
+## Development Guidelines
 
 ### Code Style
 - Use functional components with hooks
@@ -222,7 +229,7 @@ The frontend connects to the backend API. Ensure the backend is running and acce
 - Implement proper loading states
 - Handle error states gracefully
 
-## 🧪 Testing
+## Testing
 
 ### Available Scripts
 ```bash
@@ -238,7 +245,7 @@ npm run lint         # Run ESLint
 - E2E testing for critical user flows
 - Performance testing for large datasets
 
-## 🚀 Deployment
+## Deployment
 
 ### Build Process
 1. Run `npm run build`
@@ -258,7 +265,7 @@ npm run lint         # Run ESLint
 - Optimize bundle size
 - Implement error tracking
 
-## 🤝 Contributing
+## Contributing
 
 1. Follow the existing component structure
 2. Use consistent naming conventions
@@ -267,7 +274,7 @@ npm run lint         # Run ESLint
 5. Test on multiple devices and browsers
 6. Follow accessibility guidelines
 
-## 📞 Support
+## Support
 
 For frontend-specific issues or questions, please refer to the main project README or create an issue in the repository.
 
