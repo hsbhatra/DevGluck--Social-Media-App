@@ -32,7 +32,68 @@ const ProfileHeader = ({ onAddClick, onEditProfile }) => {
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.5, ease: "easeOut" }}
     >
-      <div className="flex items-start justify-between mb-6">
+      {/* Mobile Layout - Stack everything vertically */}
+      <div className="block sm:hidden">
+        {/* Profile Image and Info */}
+        <div className="flex items-start space-x-4 mb-4">
+          <motion.div 
+            className="w-20 h-20 rounded-full overflow-hidden flex-shrink-0 bg-yellow-200"
+            whileHover={{ scale: 1.05 }}
+            transition={{ duration: 0.2 }}
+          >
+            {profile.avatar ? (
+              <img src={profile.avatar} alt={profile.name} className="w-full h-full object-cover" />
+            ) : (
+              <div className="w-full h-full bg-yellow-200 flex items-center justify-center">
+                <span className="text-gray-700 font-bold text-xl">{profile.initials}</span>
+              </div>
+            )}
+          </motion.div>
+          <motion.div 
+            className="flex-1 min-w-0"
+            initial={{ opacity: 0, x: -20 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.4, delay: 0.2 }}
+          >
+            <h1 className="text-xl font-bold text-gray-900 mb-1 truncate">{profile.name}</h1>
+            <p className="text-gray-600 text-sm mb-2 truncate">@{profile.username}</p>
+            <p className="text-gray-500 text-sm break-words">{profile.bio}</p>
+          </motion.div>
+        </div>
+        
+        {/* Stats below bio on mobile */}
+        <motion.div 
+          className="flex justify-center space-x-8 text-center mb-6"
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.4, delay: 0.3 }}
+        >
+          <motion.div
+            whileHover={{ scale: 1.05 }}
+            transition={{ duration: 0.2 }}
+          >
+            <div className="text-xl font-bold text-gray-900">{profile.posts}</div>
+            <div className="text-sm text-gray-600">Posts</div>
+          </motion.div>
+          <motion.div
+            whileHover={{ scale: 1.05 }}
+            transition={{ duration: 0.2 }}
+          >
+            <div className="text-xl font-bold text-gray-900">{profile.followers}</div>
+            <div className="text-sm text-gray-600">Followers</div>
+          </motion.div>
+          <motion.div
+            whileHover={{ scale: 1.05 }}
+            transition={{ duration: 0.2 }}
+          >
+            <div className="text-xl font-bold text-gray-900">{profile.following}</div>
+            <div className="text-sm text-gray-600">Following</div>
+          </motion.div>
+        </motion.div>
+      </div>
+
+      {/* Desktop Layout - Keep original side-by-side layout */}
+      <div className="hidden sm:flex items-start justify-between mb-6">
         {/* Profile Image and Info */}
         <div className="flex items-start space-x-4">
           <motion.div 
