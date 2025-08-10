@@ -25,6 +25,34 @@ A modern, full-stack social media application built with the MERN stack (MongoDB
 - State Management: Redux Toolkit for global state
 - API Integration: RESTful API with Express.js
 
+## Screenshots
+
+Below are some screenshots showcasing the main features and UI of DevGluck:
+
+### Home Page
+![Home Page](screenshots/Home%20Page.png)
+
+### Signup Page
+![Signup Page](screenshots/Signup%20Page.png)
+
+### Login Page
+![Login Page](screenshots/Login%20Page.png)
+
+### Profile Page
+![Profile Page](screenshots/Profile%20Page.png)
+
+### Edit Profile Pop-up
+![Edit Profile Pop-up](screenshots/Edit%20Profile%20Pop-up.png)
+
+### Add New Post
+![Add New Post](screenshots/Add%20New%20Post.png)
+
+### Saved Posts Page
+![Saved Posts Page](screenshots/Saved%20Posts%20Page.png)
+
+### Chat Page
+![Chat Page](screenshots/Chat%20Page.png)
+
 ## Tech Stack
 
 ### Backend
