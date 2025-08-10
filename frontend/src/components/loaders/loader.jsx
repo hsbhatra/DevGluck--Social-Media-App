@@ -1,5 +1,4 @@
 import React from 'react';
-import Loader from "../loaders/loader";
 
 export default function Loader() {
   return (
