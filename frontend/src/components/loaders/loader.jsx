@@ -17,3 +17,5 @@ export default function Loader() {
     </div>
   );
 }
+
+// Loader component for displaying a loading spinner
