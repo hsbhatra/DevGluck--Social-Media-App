@@ -229,7 +229,7 @@ function SignupPage() {
               transition={{ duration: 0.4, delay: 0.9 }}
               whileHover={{ scale: 1.02 }}
               whileTap={{ scale: 0.98 }}
-              transition={{ duration: 0.2 }}
+              // transition={{ duration: 0.2 }}
             >
              Create Account
             </motion.button>
