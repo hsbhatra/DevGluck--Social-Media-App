@@ -5,7 +5,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import FormInput from "../Other/FormInput";
 import { EmailIcon, LockIcon, UserIcon } from "../Other/Icons";
 import { signUpUser } from "../../slices/UserSlice";
-import Loader from "../loaders/Loader";
+import Loader from "../loaders/loader";
 
 // SignupPage component handles user registration
 function SignupPage() {

@@ -5,7 +5,7 @@ import FormInput from "../Other/FormInput";
 import { EmailIcon, LockIcon } from "../Other/Icons";
 import { useDispatch, useSelector } from "react-redux";
 import { signInUser } from "../../slices/UserSlice";
-import Loader from "../loaders/Loader";
+import Loader from "../loaders/loader";
 
 const LoginPage = () => {
   const navigate = useNavigate();

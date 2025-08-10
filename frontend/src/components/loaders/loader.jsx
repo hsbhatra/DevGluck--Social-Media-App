@@ -18,4 +18,4 @@ export default function Loader() {
   );
 }
 
-// Loader component for displaying a loading spinner
+// Loader component for displaying a loading spinner.
