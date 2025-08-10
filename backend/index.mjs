@@ -12,7 +12,11 @@ const app = express();
 
 app.use(cors(
   {
-    origin: "http://localhost:5173",
+    // For development
+    // origin: "http://localhost:5173",
+
+    // For production
+    origin: "https://dev-gluck.vercel.app",
     credentials: true,
   }
 ));
